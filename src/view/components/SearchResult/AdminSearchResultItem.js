@@ -59,7 +59,7 @@ function focusOutCellHandlerFactory(translation, callback){
     return handler;
 }
 
-export default ({translation : translation_record, onAdd, onDelete, onEdit, onRedo, onUndo}) =>{
+export default ({translation : translation_record, onDelete=()=>{}, onEdit=()=>{}}) =>{
   const origin = translation_record.get("origin");
   const origin_main = origin.get("main");
   const origin_short = origin.get("short") || "";
@@ -95,6 +95,7 @@ export default ({translation : translation_record, onAdd, onDelete, onEdit, onRe
                 className={inputClassName}
                 contentEditable
                 data-property="short"
+                className="js-origin-field"
               >
                 {origin_short}
             </div>
@@ -106,6 +107,7 @@ export default ({translation : translation_record, onAdd, onDelete, onEdit, onRe
               className={inputClassName}
               contentEditable
               data-property="type"
+              className="js-type-field"
             >
               {type}
             </div>
@@ -117,6 +119,7 @@ export default ({translation : translation_record, onAdd, onDelete, onEdit, onRe
                 className={inputClassName}
                 contentEditable
                 data-property="translation"
+                className="js-translation-field"
               >
               {translation}
             </div>
@@ -127,6 +130,7 @@ export default ({translation : translation_record, onAdd, onDelete, onEdit, onRe
                 onBlur={focusout_handler}
                 className={inputClassName}
                 data-property="creation_date"
+                className="js-creation-date-field"
               >
               {creation_date}
             </div>
@@ -137,12 +141,13 @@ export default ({translation : translation_record, onAdd, onDelete, onEdit, onRe
                 onBlur={focusout_handler}
                 className={inputClassName}
                 data-property="edit_date"
+                className="js-edit-date-field"
               >
                 {edit_date}
               </div>
             </span>
             <span>
-              <button onClick={delete_handler}>-</button>
+              <button className="js-delete-btn" onClick={delete_handler}>-</button>
             </span>
         </li>
 };

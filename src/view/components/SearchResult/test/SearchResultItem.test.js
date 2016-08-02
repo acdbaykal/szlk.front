@@ -10,7 +10,7 @@ describe("components/SearcResultItem", function(){
 
   it("should render with a short", function(){
     const translation = createTranslation({
-        "origin":{"main":"Abblendung der Lichter", "short":"AdL"},
+        "origin":{"main":"Abblendung der Lichter", short:"AdL"},
         "type":"e",
         "translation":"aydınlatmanın kapatılması veya azaltılması, ışıkları köreltme, uzun farları kısaya alma"
       });
@@ -23,7 +23,7 @@ describe("components/SearcResultItem", function(){
 
   it("should render without a short", function(){
     const translation = createTranslation({
-        "origin":{"main":"Abblendung der Lichter", "short":"AdL"},
+        "origin":{"main":"Abblendung der Lichter"},
         "type":"e",
         "translation":"aydınlatmanın kapatılması veya azaltılması, ışıkları köreltme, uzun farları kısaya alma"
       });
