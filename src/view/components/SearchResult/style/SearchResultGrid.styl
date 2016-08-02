@@ -1,0 +1,15 @@
+$row_height = 100;
+.grid_row_container
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+  height: $row_height;
+
+  &>*
+      display: table-cell;
+      height: $row_height;
+      vertical-align: middle;
+      text-align: center;
+      &>*
+        display: inline-block;
+        width:95% 
