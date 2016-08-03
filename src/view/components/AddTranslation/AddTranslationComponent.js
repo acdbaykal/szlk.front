@@ -76,10 +76,7 @@ function createTranslationFromDOM(selector){
 export default class AddTranslationComponent extends React.Component{
   constructor(props){
       super(props);
-      const {document:doc_param, onAdd=()=>{}} = props;
-      const doc = (typeof window !== "undefined") && (typeof window.document !== "undefined")
-                    ? window.document : doc_param;
-      const root_class = this.rootElementClass = styles["add-translation"];
+      const {onAdd=()=>{}} = props;
       const selector = this._selector = new Selector(this);
       this._onAdd = (event)=>{
         const translation = createTranslationFromDOM(selector);
@@ -117,7 +114,7 @@ export default class AddTranslationComponent extends React.Component{
       `js-input-area ${styles['add-translation__input-area']} ${styles['add-translation__input-area_closed']}`:
       `js-input-area ${styles['add-translation__input-area']} ${styles['add-translation__input-area_open']}`
     ;
-    return (<span className={`js-add-translation ${this.rootElementClass}`}>
+    return (<span className={`js-add-translation ${styles["add-translation"]}`}>
       <button
         className={open_btn_class}
         onClick={this._onOpenBtnClick.bind(this)}

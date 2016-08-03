@@ -1,6 +1,5 @@
 import path from 'path';
 import {createTranslation} from 'global/data/Translation';
-const cwd = process.cwd;
 
 const translations = [
   {"origin":{"main":"abbauen"},"type":"v","translation":"tasfiye etmek, azaltmak, sökmek"},

@@ -2,7 +2,6 @@ import React from "react";
 import grid_styles from './style/SearchResultGrid.styl';
 import styles from './style/AdminSearchResultItem.styl';
 
-const focusin_handler_cache = {};
 let focused_content;
 
 function updateAssociatedProperty(cell, translation){
@@ -41,12 +40,10 @@ function focusInCellHandlerFactory(){ //simply for the sake of consistency
 }
 
 function focusOutCellHandlerFactory(translation, callback){
-  const id = translation.get("_id");
-  const is_cached = focusin_handler_cache.hasOwnProperty(id);
   const edit_handler = editHandlerFactory(translation, callback);
 
   const handler = (event)=>{
-    const {currentTarget, target} = event;
+    const {currentTarget} = event;
     const new_content = currentTarget.innerHTML;
 
     if(new_content !== focused_content){

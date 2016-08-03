@@ -40,7 +40,7 @@ const BUTTON_LABEL_MAPPING = (()=>{
 
 export default (
   (sort_by_arr)=>{
-    return class ASearchResultHeader extends React.Component {
+    class ASearchResultHeader extends React.Component {
       constructor(props) {
         super(props);
         const {onSortRequest:handler} = props;
@@ -92,5 +92,7 @@ export default (
       sortOrder: PropTypes.string.isRequired,
       sortBy: PropTypes.string.isRequired
     };
+
+    return ASearchResultHeader;
   }
 );
