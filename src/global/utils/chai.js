@@ -4,7 +4,7 @@ import chaiEnzyme from 'chai-enzyme';
 
 chai.use(chai_spies);
 chai.use(chaiEnzyme());
-const {expect} = chai;
-export {expect};
+const {expect, spy} = chai;
+export {expect, spy};
 
 export default chai;

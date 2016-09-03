@@ -1,0 +1,18 @@
+.locale-change-component-wrapper{
+  overflow: visible;
+  height: 2em;
+  position: relative;
+}
+
+.locale-change-component{
+  overflow: hidden;
+  position: absolute;
+  z-index: 2;
+  &--closed{
+    height: 2rem;
+  }
+
+  &--open{
+      height: auto;
+  }
+}

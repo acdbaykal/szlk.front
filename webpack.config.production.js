@@ -1,13 +1,12 @@
 import path from 'path';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
-import webpack from 'webpack';
 
 export default {
   devtool: 'source-map',
   entry: ['./src/main'],
-  resolve:{
-    root:[
+  resolve: {
+    root: [
       path.resolve('./node_modules'),
       path.resolve('./src')
     ]
@@ -23,10 +22,10 @@ export default {
       include: [path.join(__dirname, 'src'), /node\_modules\/react-ui-dropdown/]
     }, {
       test: /\.styl$/,
-      /* eslint-disable max-len */
+      /*eslint-disable max-len */
       loader: ExtractTextPlugin.extract('style-loader', 'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!autoprefixer-loader!stylus-loader'),
       include: [path.join(__dirname, 'src')]
-      /* eslint-enable max-len */
+      /*eslint-enable max-len */
     }, {
       test: /\.woff2$/,
       loader: 'file-loader?name=font/[name].[ext]?[hash]'
@@ -42,8 +41,8 @@ export default {
     }]
   },
   plugins: [
-    new ExtractTextPlugin('styles.css', { allChunks: false }),
+    new ExtractTextPlugin('styles.css', {allChunks: false}),
   //new webpack.optimize.UglifyJsPlugin({ minimize: true }),
-    new HtmlWebpackPlugin({ template: path.join(__dirname,'src/index.html'), inject: 'body' })
+    new HtmlWebpackPlugin({template: path.join(__dirname, 'src/index.html'), inject: 'body'})
   ]
 };

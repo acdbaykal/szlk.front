@@ -1,13 +1,13 @@
-import React from "react";
+import React from 'react';
 import grid_styles from './style/SearchResultGrid.styl';
 import styles from './style/AdminSearchResultItem.styl';
 
 let focused_content;
 
 function updateAssociatedProperty(cell, translation){
-  const property_name = cell.attributes["data-property"].value;
+  const property_name = cell.attributes['data-property'].value;
   const content = cell.innerHTML;
-  const translation_origin = translation.get("origin");
+  const translation_origin = translation.get('origin');
   switch(property_name){
   case 'translation':
     return translation.set('translation', content);
@@ -44,42 +44,45 @@ function focusInCellHandlerFactory(){ //simply for the sake of consistency
 function focusOutCellHandlerFactory(translation, callback){
   const edit_handler = editHandlerFactory(translation, callback);
 
-  const handler = (event)=>{
+  const handler = (event) => {
     const {currentTarget} = event;
     const new_content = currentTarget.innerHTML;
 
     if(new_content !== focused_content){
-      edit_handler({...event, type:"change"});
+      edit_handler({...event, type: 'change'});
     }
 
     focused_content = undefined;
-  }
+  };
 
-    return handler;
+  return handler;
 }
 
-export default ({translation : translation_record, onDelete=()=>{}, onEdit=()=>{}}) =>{
-  const origin = translation_record.get("origin");
-  const origin_main = origin.get("main");
-  const origin_short = origin.get("short") || "";
-  const translation = translation_record.get("translation");
-  const type = translation_record.get("type");
-  const creation_date = translation_record.get("creationDate").toString();
-  const edit_date = translation_record.get("editDate").toString();
+export default ({translation: translation_record, onDelete = () => {}, onEdit = () => {}}) =>{
+  const origin = translation_record.get('origin');
+  const origin_main = origin.get('main');
+  const origin_short = origin.get('short') || '';
+  const translation = translation_record.get('translation');
+  const type = translation_record.get('type');
+  const creation_date = translation_record.get('creationDate').toString();
+  const edit_date = translation_record.get('editDate').toString();
   const className = `${grid_styles.grid_row_container} ${styles['search-result-item']}`;
-  const inputClassName = `${styles['search-result-item']} ${styles['search-result-item__cell']} ${styles['search-result-item__cell_read']}`;
+  const inputClassName = `${styles['search-result-item']} ${styles['search-result-item__cell']} ` +
+                          `${styles['search-result-item__cell_read']}`;
 
   const focusin_handler = focusInCellHandlerFactory();
   const focusout_handler = focusOutCellHandlerFactory(translation_record, onEdit);
-  const delete_handler = ()=>{onDelete(translation_record)};
+  const delete_handler = () => onDelete(translation_record);
 
-  return <li className={className}>
+  return (
+    <li className={className}>
             <span>
               <span>
                 <div
                   onFocus={focusin_handler}
                   onBlur={focusout_handler}
                   className={inputClassName}
+                  //eslint-disable-next-line react/jsx-boolean-value
                   contentEditable
                   data-property="origin"
                 >
@@ -92,6 +95,7 @@ export default ({translation : translation_record, onDelete=()=>{}, onEdit=()=>{
                 onFocus={focusin_handler}
                 onBlur={focusout_handler}
                 className={inputClassName}
+                //eslint-disable-next-line react/jsx-boolean-value
                 contentEditable
                 data-property="short"
                 className="js-origin-field"
@@ -104,6 +108,7 @@ export default ({translation : translation_record, onDelete=()=>{}, onEdit=()=>{
               onFocus={focusin_handler}
               onBlur={focusout_handler}
               className={inputClassName}
+              //eslint-disable-next-line react/jsx-boolean-value
               contentEditable
               data-property="type"
               className="js-type-field"
@@ -116,6 +121,7 @@ export default ({translation : translation_record, onDelete=()=>{}, onEdit=()=>{
                 onFocus={focusin_handler}
                 onBlur={focusout_handler}
                 className={inputClassName}
+                //eslint-disable-next-line react/jsx-boolean-value
                 contentEditable
                 data-property="translation"
                 className="js-translation-field"
@@ -149,4 +155,5 @@ export default ({translation : translation_record, onDelete=()=>{}, onEdit=()=>{
               <button className="js-delete-btn" onClick={delete_handler}>-</button>
             </span>
         </li>
+      );
 };
