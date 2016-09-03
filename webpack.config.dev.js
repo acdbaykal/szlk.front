@@ -3,6 +3,7 @@ import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 const PORT = 3000;
+const EXCLUDE_REGEXP = /node_modules\/(?!(react\-ui\-dropdown)\/).*/;
 
 export default {
   port: PORT,
@@ -31,8 +32,13 @@ export default {
   module: {
     loaders: [{
       test: /\.js$/,
-      loaders: ['babel'],
-      include: path.join(__dirname, 'src')
+      loader: 'babel',
+      //eslint-disable-next-line max-len
+      include: [path.join(__dirname, 'src'), path.join(__dirname, 'node_modules/react-ui-dropdown')],
+      query: {
+        presets: ['react', 'es2015', 'airbnb', 'stage-0'],
+      //  'ignore':EXCLUDE_REGEXP
+      }
     },
     {
       test: /\.json$/,
@@ -41,7 +47,8 @@ export default {
     {
       test: /\.styl$/,
       /* eslint-disable max-len */
-      loader: 'style-loader!css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!stylus-loader'
+      loader: 'style-loader!css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!stylus-loader',
+      include: [path.join(__dirname, 'src'), path.join(__dirname, 'node_modules/react-ui-dropdown')]
       /* eslint-enable max-len */
     }, {
       test: /\.woff2$/,
@@ -55,7 +62,10 @@ export default {
     }]
   },
   plugins: [
+    new webpack.DefinePlugin({
+      DEVELOPMENT: JSON.stringify(true)
+    }),
     new webpack.HotModuleReplacementPlugin(),
-    new HtmlWebpackPlugin({ template: path.join(__dirname,'src/index.html'), inject: 'body' })
+    new HtmlWebpackPlugin({template: path.join(__dirname, 'src/index.html'), inject: 'body' })
   ]
 };

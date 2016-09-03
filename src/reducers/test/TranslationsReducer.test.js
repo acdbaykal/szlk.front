@@ -47,11 +47,20 @@ const {expect} = chai;
   })
 
   describe('it should handle DELETE_TRANSLATION_FULFILLED', function(){
-    it('by removing the translation from the store', function(){
+    it('by removing a single translation from the store', function(){
       const payload = entry;
       const action = {type:"DELETE_TRANSLATION_FULFILLED", payload}
       const result = TranslationsReducer(store, action);
       expect(Map.isMap(result)).to.be.true;
+      expect(result.get(ID)).to.be.undefined;
+    })
+
+    it('by removing an array of translation(s) from the store', function(){
+      const payload = [entry];
+      const action = {type:"DELETE_TRANSLATION_FULFILLED", payload}
+      const result = TranslationsReducer(store, action);
+      expect(Map.isMap(result)).to.be.true;
+      expect(result.size).to.be.equal(0);
       expect(result.get(ID)).to.be.undefined;
     })
   })

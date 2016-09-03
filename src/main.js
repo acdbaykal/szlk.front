@@ -1,48 +1,80 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import domready from 'domready'
-import RedBox from 'redbox-react'
-import redux_logger from 'redux-logger'
-import {applyMiddleware, createStore} from 'redux'
-import {Provider, connect} from 'react-redux'
-import { browserHistory } from 'react-router'
-import { syncHistoryWithStore } from 'react-router-redux'
-import UserRequestHandler from 'reducers/middleware/UserRequestHandler'
-import RoutingMiddleware from 'reducers/middleware/RoutingMiddleware'
-import promise_middleware from 'redux-promise-middleware'
-import ServerDataAccess from 'reducers/data_access/ServerDataAccess.js' //webpack won't find it without the .js for some reason
-import MockDataAccess from 'reducers/data_access/FileDataAccess'
-import MainReducer from 'reducers/MainReducer'
-import Root from './Root'
-import SortBy from 'global/data/SortableEnum'
-import SortDirection from 'global/data/SortDirectionEnum'
-import Immutable from 'immutable'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import domready from 'domready';
+import RedBox from 'redbox-react';
+import ReduxLogger from 'redux-logger';
+import {applyMiddleware, createStore} from 'redux';
+import {browserHistory} from 'react-router';
+import {syncHistoryWithStore} from 'react-router-redux';
+import UserRequestHandler from 'reducers/middleware/UserRequestHandler';
+import LanguageMiddleware from 'reducers/middleware/LanguageMiddleware';
+import RoutingMiddleware from 'reducers/middleware/RoutingMiddleware';
+import PromiseMiddleware from 'redux-promise-middleware';
+import ServerDataAccess from 'reducers/data_access/ServerDataAccess';
+import MockDataAccess from 'reducers/data_access/FileDataAccess';
+import MainReducer from 'reducers/MainReducer';
+import Root from './Root';
+import SortBy from 'global/data/SortableEnum';
+import SortDirection from 'global/data/SortDirectionEnum';
+import Immutable from 'immutable';
 
-const is_client_only = true;
-const data_access = is_client_only ? MockDataAccess() : ServerDataAccess();
+const in_development = typeof DEVELOPMENT !== 'undefined';
+
+if(in_development){
+  console.log('!! in development mode !!');
+}
+
+const data_access = in_development ? MockDataAccess() : ServerDataAccess('http://localhost:3000');
+// const data_access = MockDataAccess();
 const middleware = applyMiddleware(
                         UserRequestHandler(data_access),
+                        LanguageMiddleware(data_access),
                         RoutingMiddleware(browserHistory),
-                        promise_middleware(),
-                        redux_logger()
+                        PromiseMiddleware(),
+                        ReduxLogger()
                     );
-const init_state = {
-                      translations:Immutable.Map(),
-                      sorting:{sort_by:SortBy.ORIGIN, sort_order:SortDirection.ASCENDING},
-                      filtering:{search_term:""},
-                      login:{user:"", pass:"", logged_in:false}
-                    };
-const store = createStore(MainReducer(browserHistory), init_state, middleware);
+const initial_state = {
+  translations: Immutable.Map(),
+  sorting: {sort_by: SortBy.ORIGIN, sort_order: SortDirection.ASCENDING},
+  filtering: {search_term: ''},
+  login: {user: '', pass: '', logged_in: false},
+  language: {
+    messages: Immutable.Map(),
+    supported: Immutable.Map(),
+  }
+};
+const store = createStore(MainReducer, initial_state, middleware);
 const history = syncHistoryWithStore(browserHistory, store);
-const connect_all_state = (state) => state;
-const ConnectedRootComponent = connect(connect_all_state)(Root);
 
-
-
-boot();
-
-function boot() {
+function boot(){
   let rootElement = null;
+
+  function requestLanguageData(){
+    store.dispatch({type: 'INIT_LANGUAGE'});
+  }
+
+  function render(){
+    ReactDOM.render(
+      <Root store={store} history={history} />,
+      rootElement
+    );
+  }
+
+  function renderError(error){
+    ReactDOM.render(<RedBox error={error} />, rootElement);
+  }
+
+  function hotReload(){
+    try{
+      render();
+    }catch(error){
+      renderError(error);
+    }
+  }
+
+  function setupHotModuleReload(){
+    return module.hot && module.hot.accept('./Root', () => setTimeout(hotReload));
+  }
 
   domready(() => {
     rootElement = document.getElementById('app-root');
@@ -50,26 +82,7 @@ function boot() {
     setupHotModuleReload();
   });
 
-  function render(rootElement) {
-    ReactDOM.render(
-      <Root store={store} history={history} />,
-      rootElement
-    );
-  }
-
-  function setupHotModuleReload() {
-    module.hot && module.hot.accept('./Root', () => setTimeout(hotReload));
-  }
-
-  function hotReload() {
-    try {
-      render();
-    } catch (error) {
-      renderError(error);
-    }
-  }
-
-  function renderError(error) {
-    ReactDOM.render(<RedBox error={error} />, rootElement);
-  }
+  requestLanguageData();
 }
+
+boot();

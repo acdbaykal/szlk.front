@@ -1,8 +1,10 @@
-import chai from 'chai'
-import chai_spies from 'chai-spies'
-import chaiEnzyme from 'chai-enzyme'
+import chai from 'chai';
+import chai_spies from 'chai-spies';
+import chaiEnzyme from 'chai-enzyme';
 
 chai.use(chai_spies);
 chai.use(chaiEnzyme());
+const {expect} = chai;
+export {expect};
 
 export default chai;

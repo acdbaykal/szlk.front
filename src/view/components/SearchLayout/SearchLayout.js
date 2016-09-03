@@ -3,6 +3,7 @@ import SearchInput from 'view/components/SearchInput/SearchInput.js'
 import SearchResultHeader from "view/components/SearchResult/SearchResultHeader"
 import SearchResultList from "view/components/SearchResult/SearchResultList"
 import TranslationsSelector from 'selectors/TranslationsSelector'
+import LocaleChangeComponent from 'view/components/LocaleChangeComponent/LocaleChangeComponent'
 import styles from './style/SearchLayout.styl'
 import { connect } from 'react-redux'
 
@@ -19,11 +20,18 @@ function createSortRequestHandler(dispatch){
   };
 }
 
+function createLocaleChangeHandler(dispatch){
+  return function(locale_key){
+      dispatch({type:"SET_LOCALE", payload:locale_key});
+  }
+}
+
 const A_KEY_CODE = 65;
 
 function keyDownHandlerFactory(dispatch){
   return (event)=>{
-    if(event.shiftKey && event.ctrlKey && event.keyCode === A_KEY_CODE){
+    if(event.shiftKey && event.ctrlKey &&
+      (event.which === A_KEY_CODE || event.keyCode === A_KEY_CODE)){
         dispatch({type:"LOGIN_NAVIGATION_REQUESTED"});
     }
   }
@@ -33,10 +41,11 @@ class SearchLayout extends React.Component{
 
   constructor(props){
     super(props);
-    this._onSearchInputChange = createInputChangeHandler(props.dispatch);
-    this._onSortRequest = createSortRequestHandler(props.dispatch);
-
     const {dispatch} = props;
+    this._onSearchInputChange = createInputChangeHandler(dispatch);
+    this._onSortRequest = createSortRequestHandler(dispatch);
+    this._onLocaleChange = createLocaleChangeHandler(dispatch);
+
     //document can be mocked for testing and passed as a property,
     //but normally it should be the document provided by the DOM
     const doc = (()=>{
@@ -57,6 +66,11 @@ class SearchLayout extends React.Component{
         <SearchInput
           onInputChange={this._onSearchInputChange}
           value={this.props.filtering.search_term}
+        />
+        <LocaleChangeComponent
+          supportedLocales={this.props.language.supported}
+          current={this.props.language.current}
+          onLocaleChange={this._onLocaleChange}
         />
         <div>
           <SearchResultHeader

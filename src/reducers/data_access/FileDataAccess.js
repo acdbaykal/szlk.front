@@ -1,6 +1,7 @@
-import path from 'path';
-import {createTranslation} from 'global/data/Translation';
+import {getMessages as getMessagesFromFile,
+  supportedLanguages as supported_languages} from 'szlk.messages';
 
+/*eslint-disable */
 const translations = [
   {"origin":{"main":"abbauen"},"type":"v","translation":"tasfiye etmek, azaltmak, sökmek"},
   {"origin":{"main":"abbauen des Gleises"},"type":"v","translation":"hattın sökülmesi"},
@@ -78,27 +79,24 @@ const translations = [
   {"origin":{"main":"Abraumförderbandbremse"},"type":"e","translation":"moloz taşıma bandı freni"},{"origin":{"main":"Abraumförderbandsteuerung"},"type":"e","translation":"moloz taşıma bandı kumandası"},{"origin":{"main":"Abrechnungsbestimmungen"},"type":"pl","translation":"hesaplaşma kuralları"},{"origin":{"main":"Abrechnungsstelle"},"type":"e","translation":"hesaplaşma departmanı"},{"origin":{"main":"Abregelung"},"type":"e","translation":"sınırlama, hız ayarı"},{"origin":{"main":"Abreißfunke"},"type":"e","translation":"devre kesme kıvılcımı"},{"origin":{"main":"Abrieb"},"type":"r","translation":"ufalanmış malzeme, sürtünme ve aşınma sırasında ortaya çıkan malzeme"},{"origin":{"main":"Abrollcontainer"},"type":"r","translation":"tekerlekli konteyner, kamyon üzerinden kendi tekerlekleri üzerine indirilebilen konteyner"},{"origin":{"main":"abrollen"},"type":"v","translation":"tekerin yuvarlanması, bir makaranın boşaltılması, vagonun kaçması"},{"origin":{"main":"Abrüstung"},"type":"e","translation":"donanımın sökülmesi"},{"origin":{"main":"Abrüstzeit"},"type":"e","translation":"donanım sökme süresi"},{"origin":{"main":"Abschalter"},"type":"r","translation":"değiştirme şalteri"},{"origin":{"main":"Abschaltfunke"},"type":"e","translation":"devre kesme kıvılcımı"},{"origin":{"main":"Abschaltleistung"},"type":"e","translation":"kesme, kapama gücü"},{"origin":{"main":"Abschaltung"},"type":"e","translation":"kapama, devreden çıkarma"},{"origin":{"main":"Abschaltventil"},"type":"r","translation":"kapama vanası, tahliye vanası"},{"origin":{"main":"Abscheider"},"type":"r","translation":"ayırıcı, seperatör"},{"origin":{"main":"Abscherbolzen"},"type":"r","translation":"kesme pimi"},{"origin":{"main":"Abscherkontrolle"},"type":"e","translation":"kesme kontrolü"},{"origin":{"main":"Abscherstift"},"type":"r","translation":"kesme pimi"},{"origin":{"main":"Abschirmung"},"type":"e","translation":"blendaj, kalkanlama, zırhlama"},{"origin":{"main":"Abschlammen"},"type":"s","translation":"çamurunu temizlemek, yıkamak"},{"origin":{"main":"Abschlammventil"},"type":"s","translation":"çamur boşaltma valfı"},{"origin":{"main":"Abschleppgerät"},"type":"s","translation":"üzerine alarak yedekte taşıyan araç, çekici"},{"origin":{"main":"Abschlussblech"},"type":"s","translation":"koruyucu sac, uç sacı, köşe sacı, köşebent"},{"origin":{"main":"Abschlussstrecke"},"type":"e","translation":"yolculuğun tamamlayıcı etabı"},{"origin":{"main":"Abschlussventil"},"type":"s","translation":"kapama valfı"},{"origin":{"main":"Abschlusswiderstand"},"type":"r","translation":"sınırlama direnci"},{"origin":{"main":"Abschneiden der abgenutzten Schienenenden"},"type":"s","translation":"aşınmış, eskimiş olan ray uçlarının kesilmesi"},{"origin":{"main":"Abschnitt"},"type":"r","translation":"bölüm"},{"origin":{"main":"Abschnitt einer Geschwindigkeitsbegrenzung"},"type":"r","translation":"bir sürat tahdidi bölümü"},{"origin":{"main":"Abschnittslänge"},"type":"e","translation":"bölüm uzunluğu"},{"origin":{"main":"Abschnittssteuerung"},"type":"e","translation":"bölüm kontrolü, bölüm kumandası"},{"origin":{"main":"Abschnittswechsel"},"type":"r","translation":"bölüm değişikliği, bölüm takası"},{"origin":{"main":"abschnüren der Gleisbögen"},"type":"v","translation":"ekseni bozuk kurblu hatların fleş metoduyla düzeltilmesi"},{"origin":{"main":"abschrägen"},"type":"v","translation":"pahlamak"},{"origin":{"main":"Abschrägung der Weichenzunge"},"type":"e","translation":"makas dili ucunun eğimli kesimi"},{"origin":{"main":"Abschreibungskosten"},"type":"pl","translation":"amortisman giderleri"},{"origin":{"main":"abschwenken"},"type":"v","translation":"saptırmak"},{"origin":{"main":"absenken"},"type":"v","translation":"oturmak, çökmek, indirmek"},{"origin":{"main":"Absenkwinkel in Bögen"},"type":"r","translation":"kurblarda indirme açısı"},{"origin":{"main":"absetzen"},"type":"v","translation":"bırakmak, yerleştirmek, indirmek"},{"origin":{"main":"absetzen auf Bettung"},"type":"v","translation":"balast yatağı üzerine indirmek, bırakmak"},{"origin":{"main":"absolut"},"type":"aj","translation":"mutlak"},{"origin":{"main":"absoluter Block"},"type":"r","translation":"mutlak blok"},
   {"origin":{"main":"absoluter Bremswegabstand"},"type":"r","translation":"mutlak fren mesafesi aralığı"},{"origin":{"main":"absoluter Leistungspegel"},"type":"r","translation":"mutlak güç seviyesi"},{"origin":{"main":"absoluter Spannungspegel"},"type":"r","translation":"mutlak voltaj seviyesi"},{"origin":{"main":"absolutes Haltsignal"},"type":"s","translation":"mutlak stop sinyali"},{"origin":{"main":"absorbieren"},"type":"v","translation":"emmek, soğurmak, massetmek"},{"origin":{"main":"Absorbtionsbelag"},"type":"r","translation":"emme, soğurma, massetme tabakası"},{"origin":{"main":"Absorbtionsfaktor"},"type":"r","translation":"emme, soğurma massetme faktörü"},{"origin":{"main":"Abspannabschnitt"},"type":"r","translation":"iki germe noktası arasında kalan bölüm"},{"origin":{"main":"abspannen"},"type":"v","translation":"voltajı azaltmak, gerilimi azaltmak"},{"origin":{"main":"Abspanner"},"type":"r","translation":"voltaj düşürme transformatörü"},{"origin":{"main":"Abspannfeld"},"type":"s","translation":"iki germe noktası arasında kalan alan"},{"origin":{"main":"Abspannmast"},"type":"r","translation":"pilon"},{"origin":{"main":"Abspanntrafo"},"type":"r","translation":"voltaj düşürme transformatörü"},{"origin":{"main":"Abspannung (Fahrleitung)"},"type":"e","translation":"katener hattın gevşetilmesi"},{"origin":{"main":"absperrbar"},"type":"aj","translation":"kilitlenebilir"},{"origin":{"main":"Absperrhahn"},"type":"r","translation":"açma-kapama vanası, kesme vanası"},{"origin":{"main":"Absperrhebel"},"type":"r","translation":"kapama kolu"},{"origin":{"main":"Absperrschieber"},"type":"r","translation":"kapama supabı, kapama sürgüsü"},{"origin":{"main":"Absperrschranke"},"type":"e","translation":"kilitlemeli bariyer"},{"origin":{"main":"Absperrstellung"},"type":"e","translation":"kapalı durum"},{"origin":{"main":"Absperrventil"},"type":"s","translation":"kapama valfı"},{"origin":{"main":"Absplitterung"},"type":"e","translation":"pullar halinde parçalanıp dökülme"},{"origin":{"main":"Abspreizung"},"type":"e","translation":"destek, dayanak, gerdirme"},{"origin":{"main":"Abspritzreinigung"},"type":"e","translation":"püskürtme suyla temizlik"},{"origin":{"main":"Abstand"},"type":"r","translation":"mesafe, ara mesafe"},{"origin":{"main":"Abstand zwischen den Schienen eines Gleises"},"type":"r","translation":"hat açıklığı, iki ray dizisi ara açıklığı"}
 ].map((t, i)=>{return {...t, _id:(i+""), creationDate:new Date(), editDate:new Date()}});
+/*eslint-enable */
 
 function search(partial){
-  var resolve;
-  var reject;
-  const promise = new Promise((res, rej)=>{resolve = res; reject = rej;});
+  let resolve;
+  const promise = new Promise((res) => {resolve = res;});
 
-  const filter_result = ()=>{
+  const filter_result = () => {
     const regex = new RegExp(partial, ['i']);
-    const result = []; // will be populated
-    translations.filter((t)=>{
-        return regex.exec(t.origin.main) !== null;
-    }).forEach((obj)=>{
-        try{
-          result.push(createTranslation(obj));
-        }
-        catch(e){
-          console.warn(e.message);
-        }
+    const result = []; //will be populated
+    translations.filter((t) => regex.exec(t.origin.main) !== null).forEach((obj) => {
+      try{
+        result.push(createTranslation(obj));
+      }catch(e){
+        console.warn(e.message);
+      }
     });
 
-    resolve(result  );
+    resolve(result);
   };
 
   setTimeout(filter_result, 0); //make async
@@ -106,47 +104,58 @@ function search(partial){
   return promise;
 }
 
-function logIn({user, pass}){
+function logIn(user, pass){
   let resolve;
-  const promise = new Promise((res)=>{resolve = res;});
-  setTimeout(()=>{resolve({user, pass});}, 0);
+  let reject;
+  const promise = new Promise((res, rej) => {resolve = res; reject = rej;});
+  function logIn_inner(){
+    if(user === 'test' && pass === 'test'){
+      resolve({user, pass});
+    }else{
+      reject(new Error('Login attempt failed'));
+    }
+  }
+  setTimeout(logIn_inner, 0);
   return promise;
 }
 
 function objectify(translation){
   return {
-      origin:{
-        main:translation.get("origin").get("main"),
-        short:translation.get("origin").get("short"),
-      },
-      translation:translation.get("translation"),
-      creationDate:translation.get("creationDate"),
-      editDate:translation.get("editDate")
+    origin: {
+      main: translation.get('origin').get('main'),
+      short: translation.get('origin').get('short'),
+    },
+    translation: translation.get('translation'),
+    creationDate: translation.get('creationDate'),
+    editDate: translation.get('editDate')
   };
 }
 
 function add(translation){
   let resolve;
-  let reject;
-  const promise = new Promise((res, rej)=>{resolve = res; reject=rej;});
+  const promise = new Promise((res) => {resolve = res;});
 
+  const add_inner = () => {
+    const id = (() => {
+      const count = translations.length;
+      const last_id = translations[count - 1]._id;
+      const last_id_num = parseInt(last_id, 10);
+      return `${last_id_num + 50}`;
+    })();
+    const now = new Date();
+    //add new entry to the translations array
+    const to_add = objectify(translation);
+    to_add.creationDate = to_add.editDate = now;
+    to_add._id = id;
+    translations.push(to_add);
 
-  const add_inner = ()=>{
-      const id = parseInt(translations[translations.length-1]._id)+50+"";
-      const now = new Date();
-      // add new entry to the translations array
-      const to_add = objectify(translation);
-      to_add.creationDate = to_add.editDate = now;
-      to_add._id = id;
-      translations.push(to_add);
-
-      // set the nonset properties
-      resolve(
-        translation.set("_id", id)
-          .set("creationDate", now)
-          .set("editDate", now)
-      );
-  }
+    //set the nonset properties
+    resolve(
+      translation.set('_id', id)
+        .set('creationDate', now)
+        .set('editDate', now)
+    );
+  };
 
   setTimeout(add_inner, 0);
   return promise;
@@ -155,28 +164,27 @@ function add(translation){
 function delete_translation(translation){
   let resolve;
   let reject;
-  const promise = new Promise((res, rej)=>{resolve = res; reject=rej;});
+  const promise = new Promise((res, rej) => {resolve = res; reject = rej;});
   const param_id = translation.get("_id");
 
-  const delete_inner = ()=>{
+  const delete_inner = () => {
     let found = false;
 
-    for(let i = 0, iLimit  = translations.length; i < iLimit && !found;i++){
+    for(let i = 0, iLimit = translations.length; i < iLimit && !found; i++){
       const item = translations[i];
       const id = item._id;
       found = param_id === id;
       if(found){
-        translations.splice(i,1);
+        translations.splice(i, 1);
       }
     }
 
     if(found){
       resolve(translation);
+    }else{
+      reject(new Error('Translation not found'));
     }
-    else{
-      reject(new Error("Translation not found"));
-    }
-  }
+  };
 
   setTimeout(delete_inner, 0);
   return promise;
@@ -185,35 +193,62 @@ function delete_translation(translation){
 function update(translation){
   let resolve;
   let reject;
-  const promise = new Promise((res, rej)=>{resolve = res; reject=rej;});
-  translation = translation.set("editDate", new Date());
+  const promise = new Promise((res, rej) => {resolve = res; reject = rej;});
+  const new_translation = translation.set('editDate', new Date());
 
-  const update_inner = ()=>{
-    const entry = translations.filter((t)=>{
-      return t._id === translation.get("_id");
-    });
+  const update_inner = () => {
+    const entry = translations.filter((t) => t._id === new_translation.get('_id'));
 
     if(entry.length > 0){
-        const to_update = entry[0];
-        const updated = objectify(translation);
-        Object.assign(to_update, updated);
-        resolve(translation)
+      const to_update = entry[0];
+      const updated = objectify(translation);
+      Object.assign(to_update, updated);
+      resolve(translation);
+    }else{
+      reject(new Error('Translation not found'));
     }
-    else{
-        reject(new Error("Translation not found"));
-    }
-
-  }
+  };
 
   setTimeout(update_inner, 0);
   return promise;
 }
-export default ((file)=>{
+
+function getSupportedLanguages(){
+  let resolve;
+  const promise = new Promise((res) => {resolve = res;});
+  const get_supported_inner = () => {
+    resolve(supported_languages);
+  };
+  setTimeout(get_supported_inner, 0);
+  return promise;
+}
+
+function getMessages(lang){
+  let resolve;
+  let reject;
+  const promise = new Promise((res, rej) => {resolve = res; reject = rej;});
+  const get_messages_inner = () => {
+    try{
+      const messages = getMessagesFromFile(lang);
+      resolve({language: lang, messages});
+    }catch(err){
+      reject(err);
+    }
+  };
+  setTimeout(get_messages_inner, 0);
+  return promise;
+}
+
+//eslint-disable-next-line arrow-body-style
+export default (() => {
   return {
+    getSupportedLanguages,
+    getMessages,
     add,
     search,
     logIn,
     update,
-    "delete":delete_translation
-  }
+    //eslint-disable-next-line quote-props
+    'delete': delete_translation
+  };
 });

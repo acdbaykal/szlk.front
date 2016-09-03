@@ -9,21 +9,23 @@ function updateAssociatedProperty(cell, translation){
   const content = cell.innerHTML;
   const translation_origin = translation.get("origin");
   switch(property_name){
-    case "translation":
-      return translation.set("translation", content);
-    case "origin":
-      return translation.set("origin", translation_origin.set("main", content));
-    case "short":
-      return translation.set("origin", translation_origin.set("short", content));
-    case "creation_date":
-      return translation.set("creation_date", content);
-    case "edit_date":
-      return translation.set("edit_date", content);
+  case 'translation':
+    return translation.set('translation', content);
+  case 'origin':
+    return translation.set('origin', translation_origin.set('main', content));
+  case 'short':
+    return translation.set('origin', translation_origin.set('short', content));
+  case 'creation_date':
+    return translation.set('creation_date', content);
+  case 'edit_date':
+    return translation.set('edit_date', content);
+  default:
+    return undefined;
   }
 }
 
 function editHandlerFactory(translation, callback){
-  return (event)=>{
+  return (event) => {
     const {currentTarget} = event;
     const updated = updateAssociatedProperty(currentTarget, translation);
     callback(updated);

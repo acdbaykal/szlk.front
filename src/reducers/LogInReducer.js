@@ -1,11 +1,16 @@
-import ReducerFactory from './ReducerFactory'
+import ReducerFactory from './ReducerFactory';
 
-export default (history)=>{return (store={}, action)=>{
-  const {type} = action;
-  if(type === "LOGIN_FULFILLED"){
-    return action.payload;
-  }
-  else{
-    return store;
-  }
-}}
+function handleLogin(store, action){
+  return {...(action.payload), logged_in: true};
+}
+
+function handleLoginReject(store){
+  return {...store, logged_in: false};
+}
+
+const map = {
+  LOGIN_FULFILLED: handleLogin,
+  LOGIN_REJECTED: handleLoginReject
+};
+
+export default ReducerFactory(map, {});

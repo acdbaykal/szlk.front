@@ -9,10 +9,10 @@ export default class MainContainer extends React.Component{
   }
 
   render(){
-      return (
+    return (
       <div className={styles.wrap_all}>
         <div className={styles.main_container}>
-          <Logo/>
+          <Logo />
           {React.cloneElement(this.props.children, this.props)}
         </div>
       </div>

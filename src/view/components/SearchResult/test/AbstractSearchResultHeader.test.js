@@ -1,27 +1,26 @@
-import React, {PropTypes} from 'react'
-import SortBy from 'global/data/SortableEnum'
-import SortOrder from 'global/data/SortDirectionEnum'
-import AbstractSearchResultHeader from '../AbstractSearchResultHeader'
-import {shallow} from 'enzyme'
-import chai from 'chai'
-const {expect, spy:createSpy} = chai;
+import React from 'react';
+import SortBy from 'global/data/SortableEnum';
+import SortOrder from 'global/data/SortDirectionEnum';
+import AbstractSearchResultHeader from '../AbstractSearchResultHeader';
+import {shallow} from 'enzyme';
+import chai from 'chai';
+const {expect, spy: createSpy} = chai;
 
+/*eslint-disable no-undef, prefer-arrow-callback, func-names*/
 describe('components/AbstractSearchResultHeader', function(){
   const HeaderClass = AbstractSearchResultHeader([
-      SortBy.ORIGIN, SortBy.TRANSLATION, SortBy.TYPE
+    SortBy.ORIGIN, SortBy.TRANSLATION, SortBy.TYPE
   ]);
 
   it('sould shallow render', function(){
-    const func = ()=>{
-      shallow(<HeaderClass/>)
-    }
+    const func = () => shallow(<HeaderClass />);
     expect(func).to.not.throw();
-  })
+  });
 
   it('should have as many buttons as children as given while craeting a concrete class', function(){
-    const rendered = shallow(<HeaderClass/>);
-    expect(rendered.find("button").length).to.be.equal(3);
-  })
+    const rendered = shallow(<HeaderClass />);
+    expect(rendered.find('button').length).to.be.equal(3);
+  });
 
   it('triggering a button should cause the onSortRequest propety to be called', function(){
     const spy = createSpy();
@@ -32,9 +31,11 @@ describe('components/AbstractSearchResultHeader', function(){
         onSortRequest = {spy}
       />
     );
-    const buttons = rendered.find("button");
+    const buttons = rendered.find('button');
     const origin_sort_btn = buttons.first();
+    spy.reset();
     origin_sort_btn.simulate('click');
+    //eslint-disable-next-line no-unused-expressions
     expect(spy).to.have.been.called.once;
-  })
+  });
 });

@@ -20,11 +20,12 @@ export default {
     loaders: [{
       test: /\.js$/,
       loader: 'babel',
-      include: path.join(__dirname, 'src')
+      include: [path.join(__dirname, 'src'), /node\_modules\/react-ui-dropdown/]
     }, {
       test: /\.styl$/,
       /* eslint-disable max-len */
-      loader: ExtractTextPlugin.extract('style-loader', 'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!autoprefixer-loader!stylus-loader')
+      loader: ExtractTextPlugin.extract('style-loader', 'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!autoprefixer-loader!stylus-loader'),
+      include: [path.join(__dirname, 'src')]
       /* eslint-enable max-len */
     }, {
       test: /\.woff2$/,
@@ -35,11 +36,14 @@ export default {
     }, {
       test: /\.md$/,
       loader: 'html!markdown'
+    }, {
+      test: /\.json$/,
+      loader: 'json'
     }]
   },
   plugins: [
     new ExtractTextPlugin('styles.css', { allChunks: false }),
-    new webpack.optimize.UglifyJsPlugin({ minimize: true }),
+  //new webpack.optimize.UglifyJsPlugin({ minimize: true }),
     new HtmlWebpackPlugin({ template: path.join(__dirname,'src/index.html'), inject: 'body' })
   ]
 };
