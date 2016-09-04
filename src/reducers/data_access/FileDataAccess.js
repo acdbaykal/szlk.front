@@ -1,6 +1,8 @@
 import {getMessages as getMessagesFromFile,
   supportedLanguages as supported_languages} from 'szlk.messages';
 
+import {createTranslation} from 'global/data/Translation';
+
 /*eslint-disable */
 const translations = [
   {"origin":{"main":"abbauen"},"type":"v","translation":"tasfiye etmek, azaltmak, sökmek"},
@@ -165,7 +167,7 @@ function delete_translation(translation){
   let resolve;
   let reject;
   const promise = new Promise((res, rej) => {resolve = res; reject = rej;});
-  const param_id = translation.get("_id");
+  const param_id = translation.get('_id');
 
   const delete_inner = () => {
     let found = false;

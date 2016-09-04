@@ -1,4 +1,5 @@
 import React from 'react';
+import TypeCell from './SearchResultItemTypeCell';
 import grid_styles from './style/SearchResultGrid.styl';
 import styles from './style/AdminSearchResultItem.styl';
 
@@ -86,8 +87,8 @@ export default ({translation: translation_record, onDelete = () => {}, onEdit = 
                   contentEditable
                   data-property="origin"
                 >
-                {origin_main}
-              </div>
+                  {origin_main}
+                </div>
               </span>
             </span>
             <span>
@@ -101,21 +102,16 @@ export default ({translation: translation_record, onDelete = () => {}, onEdit = 
                 className="js-origin-field"
               >
                 {origin_short}
-            </div>
+              </div>
             </span>
-            <span>
-            <div
+            <TypeCell
               onFocus={focusin_handler}
               onBlur={focusout_handler}
               className={inputClassName}
-              //eslint-disable-next-line react/jsx-boolean-value
-              contentEditable
-              data-property="type"
+              contentEditable={true}
               className="js-type-field"
-            >
-              {type}
-            </div>
-            </span>
+              type={type}
+            />
             <span>
               <div
                 onFocus={focusin_handler}

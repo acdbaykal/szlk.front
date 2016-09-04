@@ -1,10 +1,10 @@
 import React from 'react';
 import {expect, spy as createSpy} from 'chai';
-import {shallow, mount} from 'enzyme';
+import {shallowWithIntl, mountWithIntl} from 'view/utils/test/IntlHelper';
 import AdminSearchResultItem from '../AdminSearchResultItem';
 import {createTranslation} from 'global/data/Translation';
 
-/*eslint-disable no-undef, func-names, prefer-arrow-callback*/
+/*eslint-disable no-undef, func-names, prefer-arrow-callback, no-unused-expressions*/
 describe('components/AdminSearcResultItem', function(){
   const translation = createTranslation({
     origin: {main: 'Abblendung der Lichter', short: 'AdL'},
@@ -14,13 +14,13 @@ describe('components/AdminSearcResultItem', function(){
   });
 
   it('should render with a short', function(){
-    expect(() => shallow(<AdminSearchResultItem translation={translation} />)
+    expect(() => shallowWithIntl(<AdminSearchResultItem translation={translation} />)
     ).to.not.throw();
   });
 
   it('should render without a short', function(){
     expect(() => {
-      shallow(
+      shallowWithIntl(
         <AdminSearchResultItem translation={translation.remove('short')} />
       );
     }).to.not.throw();
@@ -28,7 +28,7 @@ describe('components/AdminSearcResultItem', function(){
 
   it('should call the onDelete property when the delete button is triggered', function(){
     const spy = createSpy();
-    const component = shallow(
+    const component = shallowWithIntl(
       <AdminSearchResultItem translation={translation} onDelete={spy} />
     );
     const del_btn = component.find('.js-delete-btn');
@@ -40,7 +40,7 @@ describe('components/AdminSearcResultItem', function(){
   it('should call the onEdit property when the a editable field is focused, ' +
       'changed and then focused out', function(){
     const spy = createSpy();
-    const component = mount(
+    const component = mountWithIntl(
       <AdminSearchResultItem translation={translation} onEdit={spy} />
     );
     const origin_field = component.find('.js-origin-field');
@@ -53,7 +53,7 @@ describe('components/AdminSearcResultItem', function(){
   it('should NOT call the onEdit property when the a editable field is focused' +
       'and then focused out without a change', function(){
     const spy = createSpy();
-    const component = mount(
+    const component = mountWithIntl(
       <AdminSearchResultItem translation={translation} onEdit={spy} />
     );
     const origin_field = component.find('.js-origin-field');

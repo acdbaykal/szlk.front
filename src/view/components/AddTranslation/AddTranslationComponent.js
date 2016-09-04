@@ -1,7 +1,7 @@
 import React from 'react';
 import {findDOMNode} from 'react-dom';
 import {createTranslation, EntryType} from 'global/data/Translation';
-import {FormattedMessage, injectIntl} from 'react-intl';
+import {FormattedMessage, injectIntl, intlShape} from 'react-intl';
 import localeCompare from 'global/utils/localeCompare';
 import styles from './style/AddTranslationComponent.styl';
 
@@ -186,5 +186,11 @@ class AddTranslationComponent extends React.Component{
     );
   }
 }
+
+AddTranslationComponent.propTypes = {
+  currentLocale: React.PropTypes.string,
+  initiallyClosed: React.PropTypes.bool,
+  intl: intlShape.isRequired,
+};
 
 export default injectIntl(AddTranslationComponent);
