@@ -1,12 +1,11 @@
 import React from 'react';
 import {createStore} from 'redux';
 import AdminLayout from '../AdminLayout';
-import chai from 'global/utils/chai';
+import {expect} from 'global/utils/chai';
 import Immutable from 'immutable';
 import SortBy from 'global/data/SortableEnum';
 import SortDirection from 'global/data/SortDirectionEnum';
 import {shallow} from 'enzyme';
-const {expect} = chai;
 
 /*eslint-disable no-undef, prefer-arrow-callback, func-names*/
 describe('layouts/AdminLayout', function(){

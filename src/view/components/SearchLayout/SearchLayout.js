@@ -1,40 +1,39 @@
-import React, {PropTypes} from "react"
-import SearchInput from 'view/components/SearchInput/SearchInput.js'
-import SearchResultHeader from "view/components/SearchResult/SearchResultHeader"
-import SearchResultList from "view/components/SearchResult/SearchResultList"
-import TranslationsSelector from 'selectors/TranslationsSelector'
-import LocaleChangeComponent from 'view/components/LocaleChangeComponent/LocaleChangeComponent'
-import styles from './style/SearchLayout.styl'
-import { connect } from 'react-redux'
+import React, {PropTypes} from 'react';
+import SearchInput from 'view/components/SearchInput/SearchInput';
+import SearchResultHeader from 'view/components/SearchResult/SearchResultHeader';
+import SearchResultList from 'view/components/SearchResult/SearchResultList';
+import TranslationsSelector from 'selectors/TranslationsSelector';
+import LocaleChangeComponent from 'view/components/LocaleChangeComponent/LocaleChangeComponent';
+import styles from './style/SearchLayout.styl';
+import {connect} from 'react-redux';
 
 function createInputChangeHandler(dispatch){
-  return function({value}){
-    console.log("dispatch SEARCH_REQUESTED");
-      dispatch({type:"SEARCH_REQUESTED", search:value});
+  return function onInputChange({value}){
+    dispatch({type: 'SEARCH_REQUESTED', search: value});
   };
 }
 
 function createSortRequestHandler(dispatch){
-  return function({sort_by}){
-      dispatch({type:"SORT_REQUESTED", sort_by});
+  return function onSortRequest({sort_by}){
+    dispatch({type: 'SORT_REQUESTED', sort_by});
   };
 }
 
 function createLocaleChangeHandler(dispatch){
-  return function(locale_key){
-      dispatch({type:"SET_LOCALE", payload:locale_key});
-  }
+  return function onLocaleChange(locale_key){
+    dispatch({type: 'SET_LOCALE', payload: locale_key});
+  };
 }
 
 const A_KEY_CODE = 65;
 
 function keyDownHandlerFactory(dispatch){
-  return (event)=>{
+  return (event) => {
     if(event.shiftKey && event.ctrlKey &&
       (event.which === A_KEY_CODE || event.keyCode === A_KEY_CODE)){
-        dispatch({type:"LOGIN_NAVIGATION_REQUESTED"});
+      dispatch({type: 'LOGIN_NAVIGATION_REQUESTED'});
     }
-  }
+  };
 }
 
 class SearchLayout extends React.Component{
@@ -48,15 +47,15 @@ class SearchLayout extends React.Component{
 
     //document can be mocked for testing and passed as a property,
     //but normally it should be the document provided by the DOM
-    const doc = (()=>{
-      var result = props.document;
-      if(typeof doc === "undefined" && window && window.document){
+    const doc = (() => {
+      let result = props.document;
+      if(typeof doc === 'undefined' && window && window.document){
         result = window.document;
       }
       return result;
     })();
-    if(typeof doc !== "undefined"){
-      doc.addEventListener("keydown", keyDownHandlerFactory(dispatch));
+    if(typeof doc !== 'undefined'){
+      doc.addEventListener('keydown', keyDownHandlerFactory(dispatch));
     }
   }
 
@@ -88,14 +87,18 @@ class SearchLayout extends React.Component{
 }
 
 SearchLayout.propTypes = {
-  translations:PropTypes.array.isRequired
+  document: PropTypes.element.any,
+  filtering: PropTypes.object.isRequired,
+  language: PropTypes.object.isRequired,
+  sorting: PropTypes.object.isRequired,
+  translations: PropTypes.array.isRequired
 };
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state){
   return {
     ...state,
-    translations:TranslationsSelector(state)
+    translations: TranslationsSelector(state)
   };
 }
 
-export default connect(mapStateToProps)(SearchLayout)
+export default connect(mapStateToProps)(SearchLayout);
