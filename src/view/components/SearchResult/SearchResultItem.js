@@ -1,14 +1,15 @@
-import React from "react";
+import React from 'react';
 import TypeCell from './SearchResultItemTypeCell';
+import {Translation} from 'global/data/Translation';
 import grid_styles from './style/SearchResultGrid.styl';
 import styles from './style/SearchResultItem.styl';
 
-export default ({translation : translation_record}) =>{
-  const origin = translation_record.get("origin");
-  const origin_main = origin.get("main");
-  const origin_short = origin.get("short") || "";
-  const translation = translation_record.get("translation");
-  const type = translation_record.get("type");
+const SearchResultItem = ({translation: translation_record}) => {
+  const origin = translation_record.get('origin');
+  const origin_main = origin.get('main');
+  const origin_short = origin.get('short') || '';
+  const translation = translation_record.get('translation');
+  const type = translation_record.get('type');
   const className = `${grid_styles.grid_row_container} ${styles.search_result_item}`;
   return (
     <li className={className}>
@@ -27,3 +28,9 @@ export default ({translation : translation_record}) =>{
     </li>
   );
 };
+
+SearchResultItem.propTypes = {
+  translation: React.PropTypes.instanceOf(Translation)
+};
+
+export default SearchResultItem;

@@ -1,21 +1,23 @@
 import SortDirection from 'global/data/SortDirectionEnum';
 
-const digits = "0123456789";
+const digits = '0123456789';
 
+/*eslint-disable max-len*/
 const letter_order = {
   tr: [
-    "aAäÄªáÁàÀâÂåÅãÃæÆ", "bB", "cC", "çÇ", "dDðÐ", "eEéÉèÈêÊëË", "fF", "gG", "ğĞ", "hH", "iIİíÍìÌîÎïÏ", "jJ", "kK", "lL", "mM", "nNñÑ",
-    "oOºóÓòÒôÔõÕøØ", "öÖ" ,"pP", "qQ", "rR", "sS", "şŞ", "tT", "uUúÚùÙûÛ", "üÜ", "vV", "wW", "yYýÝ", "zZ"
+    'aAäÄªáÁàÀâÂåÅãÃæÆ', 'bB', 'cC', 'çÇ', 'dDðÐ', 'eEéÉèÈêÊëË', 'fF', 'gG', 'ğĞ', 'hH', 'iIİíÍìÌîÎïÏ', 'jJ', 'kK', 'lL', 'mM', 'nNñÑ',
+    'oOºóÓòÒôÔõÕøØ', 'öÖ', 'pP', 'qQ', 'rR', 'sS', 'şŞ', 'tT', 'uUúÚùÙûÛ', 'üÜ', 'vV', 'wW', 'yYýÝ', 'zZ'
   ],
   de: [
-    "aAäÄªáÁàÀâÂåÅãÃæÆ", "bB", "cC", "çÇ", "dDðÐ", "eEéÉèÈêÊëË", "fF", "gGğĞ", "hH", "iIİíÍìÌîÎïÏ", "jJ", "kK", "lL", "mM", "nNñÑ",
-    "oOöÖºóÓòÒôÔõÕøØ","pP", "qQ","rR", "sSşŞ", "tT", "uUúÚùÙûÛ", "üÜ", "vV", "wW", "yYýÝ", "zZ"
+    'aAäÄªáÁàÀâÂåÅãÃæÆ', 'bB', 'cC', 'çÇ', 'dDðÐ', 'eEéÉèÈêÊëË', 'fF', 'gGğĞ', 'hH', 'iIİíÍìÌîÎïÏ', 'jJ', 'kK', 'lL', 'mM', 'nNñÑ',
+    'oOöÖºóÓòÒôÔõÕøØ', 'pP', 'qQ', 'rR', 'sSşŞ', 'tT', 'uUúÚùÙûÛ', 'üÜ', 'vV', 'wW', 'yYýÝ', 'zZ'
   ],
   en: [
-    "aAäÄªáÁàÀâÂåÅãÃæÆ", "bB", "cC", "çÇ", "dDðÐ", "eEéÉèÈêÊëË", "fF", "gGğĞ", "hH", "iIİíÍìÌîÎïÏ", "jJ", "kK", "lL", "mM", "nNñÑ",
-    "oOöÖºóÓòÒôÔõÕøØ","pP", "qQ","rR", "sSşŞ", "tT", "uUúÚùÙûÛ", "üÜ", "vV", "wW", "yYýÝ", "zZ"
+    'aAäÄªáÁàÀâÂåÅãÃæÆ', 'bB', 'cC', 'çÇ', 'dDðÐ', 'eEéÉèÈêÊëË', 'fF', 'gGğĞ', 'hH', 'iIİíÍìÌîÎïÏ', 'jJ', 'kK', 'lL', 'mM', 'nNñÑ',
+    'oOöÖºóÓòÒôÔõÕøØ', 'pP', 'qQ', 'rR', 'sSşŞ', 'tT', 'uUúÚùÙûÛ', 'üÜ', 'vV', 'wW', 'yYýÝ', 'zZ'
   ]
 };
+/*eslint-enable max-len*/
 
 function compareAscending(x, y, alphabet){
   const x_digit_index = digits.indexOf(x);
@@ -37,12 +39,12 @@ function compareAscending(x, y, alphabet){
       const y_found = y_char_index > -1;
 
       if(x_found || y_found){
-        if (x_found && y_found )
+        if(x_found && y_found){
           return 0;
-        else if(x_found)
+        }else if(x_found){
           return -1;
-        else
-          return 1;
+        }
+        return 1;
       }
     }
   }

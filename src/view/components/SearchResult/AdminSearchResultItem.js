@@ -1,5 +1,6 @@
 import React from 'react';
 import TypeCell from './SearchResultItemTypeCell';
+import {Translation} from 'global/data/Translation';
 import grid_styles from './style/SearchResultGrid.styl';
 import styles from './style/AdminSearchResultItem.styl';
 
@@ -59,7 +60,8 @@ function focusOutCellHandlerFactory(translation, callback){
   return handler;
 }
 
-export default ({translation: translation_record, onDelete = () => {}, onEdit = () => {}}) =>{
+const AdminSearchResultItem =
+({translation: translation_record, onDelete = () => {}, onEdit = () => {}}) =>{
   const origin = translation_record.get('origin');
   const origin_main = origin.get('main');
   const origin_short = origin.get('short') || '';
@@ -153,3 +155,11 @@ export default ({translation: translation_record, onDelete = () => {}, onEdit = 
         </li>
       );
 };
+
+AdminSearchResultItem.propTypes = {
+  translation: React.PropTypes.instanceOf(Translation),
+  onDelete: React.PropTypes.function,
+  onEdit: React.PropTypes.function
+};
+
+export default AdminSearchResultItem;

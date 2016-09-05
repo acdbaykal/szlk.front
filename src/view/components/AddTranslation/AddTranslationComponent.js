@@ -2,18 +2,19 @@ import React from 'react';
 import {findDOMNode} from 'react-dom';
 import {createTranslation, EntryType} from 'global/data/Translation';
 import {FormattedMessage, injectIntl, intlShape} from 'react-intl';
+import getTranslationTypeData from 'global/utils/getTraslationTypeData';
 import localeCompare from 'global/utils/localeCompare';
 import styles from './style/AddTranslationComponent.styl';
 
 const ENTRY_TYPE_INTL = [
-  {id: 'app.translation.type.adj', defaultMessage: 'Sıfat', type: EntryType.ADJECTIVE},
-  {id: 'app.translation.type.direct', defaultMessage: 'Direktif', type: EntryType.DIRECTIVE},
-  {id: 'app.translation.type.noun.fem', defaultMessage: 'İsim (dişi)', type: EntryType.NOUN_FEM},
-  {id: 'app.translation.type.noun.masc', defaultMessage: 'İsim (erkek)', type: EntryType.NOUN_MAS},
-  {id: 'app.translation.type.noun.neut', defaultMessage: 'İsim (neut)', type: EntryType.NOUN_NEUT},
-  {id: 'app.translation.type.noun.pl', defaultMessage: 'İsim (çoğul)', type: EntryType.NOUN_PL},
-  {id: 'app.translation.type.pre', defaultMessage: 'Ön ek', type: EntryType.PREFIX},
-  {id: 'app.translation.type.verb', defaultMessage: 'Fiil', type: EntryType.VERB},
+  getTranslationTypeData(EntryType.ADJECTIVE),
+  getTranslationTypeData(EntryType.DIRECTIVE),
+  getTranslationTypeData(EntryType.NOUN_FEM),
+  getTranslationTypeData(EntryType.NOUN_MAS),
+  getTranslationTypeData(EntryType.NOUN_NEUT),
+  getTranslationTypeData(EntryType.NOUN_PL),
+  getTranslationTypeData(EntryType.PREFIX),
+  getTranslationTypeData(EntryType.VERB)
 ];
 
 class Selector{

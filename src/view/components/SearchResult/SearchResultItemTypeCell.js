@@ -1,20 +1,11 @@
 import React from 'react';
 import {injectIntl, intlShape} from 'react-intl';
-import {EntryType} from 'global/data/Translation';
+import getTranslationTypeData from 'global/utils/getTraslationTypeData';
 
-const ENTRY_TYPE_INTL = [
-  {id: 'app.translation.type.adj', defaultMessage: 'Sıfat', type: EntryType.ADJECTIVE},
-  {id: 'app.translation.type.direct', defaultMessage: 'Direktif', type: EntryType.DIRECTIVE},
-  {id: 'app.translation.type.noun.fem', defaultMessage: 'İsim (dişi)', type: EntryType.NOUN_FEM},
-  {id: 'app.translation.type.noun.masc', defaultMessage: 'İsim (erkek)', type: EntryType.NOUN_MAS},
-  {id: 'app.translation.type.noun.neut', defaultMessage: 'İsim (neut)', type: EntryType.NOUN_NEUT},
-  {id: 'app.translation.type.noun.pl', defaultMessage: 'İsim (çoğul)', type: EntryType.NOUN_PL},
-  {id: 'app.translation.type.pre', defaultMessage: 'Ön ek', type: EntryType.PREFIX},
-  {id: 'app.translation.type.verb', defaultMessage: 'Fiil', type: EntryType.VERB},
-];
+const EMPTY_FUNC = () => {};
 
 function _getIntlData(type){
-  return ENTRY_TYPE_INTL.filter((data) => data.type === type)[0];
+  return getTranslationTypeData(type);
 }
 
 class SearchResultItemTypeCell extends React.Component{
@@ -32,8 +23,8 @@ class SearchResultItemTypeCell extends React.Component{
   render(){
     const {className,
       contentEditable = false,
-      onFocus,
-      onBlur} = this.props;
+      onFocus = EMPTY_FUNC,
+      onBlur = EMPTY_FUNC} = this.props;
 
     const int_type = this.internationalisedType;
     return (

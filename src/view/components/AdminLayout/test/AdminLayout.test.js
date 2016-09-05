@@ -14,7 +14,8 @@ describe('layouts/AdminLayout', function(){
       translations: Immutable.Map(),
       sorting: {sort_by: SortBy.ORIGIN, sort_order: SortDirection.ASCENDING},
       filtering: {search_term: ''},
-      login: {user: '', pass: '', logged_in: false}
+      login: {user: '', pass: '', logged_in: false},
+      language: {messages: Immutable.Map(), current: 'en'}
     };
     const store = createStore((state = initial_state) => state, initial_state);
     const func = () => {
