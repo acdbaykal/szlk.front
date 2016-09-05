@@ -2,6 +2,7 @@ import React from 'react';
 import {IndexRoute, Route} from 'react-router';
 import {MainContainer} from './view/containers/index';
 import {SearchLayout, LogInLayout, AdminLayout} from './view/components/index';
+import TopFloatLayout from 'view/components/TopFloatLayout/TopFloatLayout';
 
 function routeDependingOnLogInState(store){
   return (next_state, replace) => {
@@ -22,10 +23,21 @@ function routeDependingOnLogInState(store){
   };
 }
 
-export default (store) =>
+export default (store) => (
   <Route path="/" component={MainContainer}>
-    <IndexRoute component={SearchLayout} />
-    <Route path="/login" component={LogInLayout} onEnter={routeDependingOnLogInState(store)} />
-    <Route path="/admin" component={AdminLayout} onEnter={routeDependingOnLogInState(store)} />
-    <Route path ="*" component={SearchLayout} />
-  </Route>;
+    <IndexRoute components={{top_float: TopFloatLayout, main: SearchLayout}} />
+    <Route path="/login"
+      component={{top_float: TopFloatLayout, main: LogInLayout}}
+      onEnter={routeDependingOnLogInState(store)}
+    />
+    <Route
+      path="/admin"
+      component={{top_float: TopFloatLayout, main: AdminLayout}}
+      onEnter={routeDependingOnLogInState(store)}
+    />
+    <Route
+      path ="*"
+      component={{top_float: TopFloatLayout, main: SearchLayout}}
+    />
+  </Route>
+);

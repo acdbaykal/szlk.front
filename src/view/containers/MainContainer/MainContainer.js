@@ -1,19 +1,14 @@
 import React from 'react';
-import Logo from 'view/components/LogoComponent/LogoComponent'
-import styles from './style/MainContainer.styl'
+import styles from './style/MainContainer.styl';
 
+//eslint-disable-next-line react/prefer-stateless-function
 export default class MainContainer extends React.Component{
-
-  constructor(props){
-    super(props);
-  }
-
   render(){
     return (
       <div className={styles.wrap_all}>
         <div className={styles.main_container}>
-          <Logo />
-          {React.cloneElement(this.props.children, this.props)}
+          {React.cloneElement(this.props.top_float, this.props)}
+          {React.cloneElement(this.props.main, this.props)}
         </div>
       </div>
     );

@@ -3,7 +3,6 @@ import SearchInput from 'view/components/SearchInput/SearchInput';
 import SearchResultHeader from 'view/components/SearchResult/SearchResultHeader';
 import SearchResultList from 'view/components/SearchResult/SearchResultList';
 import TranslationsSelector from 'selectors/TranslationsSelector';
-import LocaleChangeComponent from 'view/components/LocaleChangeComponent/LocaleChangeComponent';
 import styles from './style/SearchLayout.styl';
 import {connect} from 'react-redux';
 
@@ -16,12 +15,6 @@ function createInputChangeHandler(dispatch){
 function createSortRequestHandler(dispatch){
   return function onSortRequest({sort_by}){
     dispatch({type: 'SORT_REQUESTED', sort_by});
-  };
-}
-
-function createLocaleChangeHandler(dispatch){
-  return function onLocaleChange(locale_key){
-    dispatch({type: 'SET_LOCALE', payload: locale_key});
   };
 }
 
@@ -43,7 +36,6 @@ class SearchLayout extends React.Component{
     const {dispatch} = props;
     this._onSearchInputChange = createInputChangeHandler(dispatch);
     this._onSortRequest = createSortRequestHandler(dispatch);
-    this._onLocaleChange = createLocaleChangeHandler(dispatch);
 
     //document can be mocked for testing and passed as a property,
     //but normally it should be the document provided by the DOM
@@ -66,11 +58,6 @@ class SearchLayout extends React.Component{
           onInputChange={this._onSearchInputChange}
           value={this.props.filtering.search_term}
         />
-        <LocaleChangeComponent
-          supportedLocales={this.props.language.supported}
-          current={this.props.language.current}
-          onLocaleChange={this._onLocaleChange}
-        />
         <div>
           <SearchResultHeader
             onSortRequest={this._onSortRequest}
@@ -89,7 +76,6 @@ class SearchLayout extends React.Component{
 SearchLayout.propTypes = {
   document: PropTypes.element.any,
   filtering: PropTypes.object.isRequired,
-  language: PropTypes.object.isRequired,
   sorting: PropTypes.object.isRequired,
   translations: PropTypes.array.isRequired
 };
