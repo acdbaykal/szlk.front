@@ -1,17 +1,25 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import SearchResultHeader from 'view/components/SearchResult/SearchResultHeader';
+import HandlerFactory from 'view/action_handling/HandlerFactory';
 
-const SearchResultListContainer = ({sorting, onSortRequest}) => {
-  const {sort_by, sort_order} = sorting;
-  return (
-    <SearchResultHeader
-      sortBy = {sort_by}
-      sortOrder = {sort_order}
-      onSortRequest = {onSortRequest}
-    />
-  );
-};
+class SearchResultListContainer extends React.Component{
+  constructor(props){
+    super(props);
+    this._onSortRequest = HandlerFactory('SORT_REQUESTED', props.dispatch);
+  }
+
+  render(){
+    const {sort_by, sort_order} = this.props.sorting;
+    return (
+      <SearchResultHeader
+        sortBy = {sort_by}
+        sortOrder = {sort_order}
+        onSortRequest = {this._onSortRequest}
+      />
+    );
+  }
+}
 
 function mapStateToProps(state){
   return {

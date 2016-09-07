@@ -1,7 +1,6 @@
 import React from 'react';
 import styles from './style/MainContainer.styl';
 
-//eslint-disable-next-line react/prefer-stateless-function
 export default class MainContainer extends React.Component{
   shouldComponentUpdate(next_props){
     const current_props = this.props;

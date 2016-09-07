@@ -1,15 +1,23 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import SearchInput from 'view/components/SearchInput/SearchInput';
+import HandlerFactory from 'view/action_handling/HandlerFactory';
 
-const SearchResultListContainer = ({input_value, onInputChange}) => {
-  return (
-    <SearchInput
-      value = {input_value}
-      onInputChange = {onInputChange}
-    />
-  );
-};
+class SearchInputContainer extends React.Component{
+  constructor(props){
+    super(props);
+    this._onSearchInputChange = HandlerFactory('SEARCH_REQUESTED', props.dispatch);
+  }
+
+  render(){
+    return (
+      <SearchInput
+        value = {this.props.input_value}
+        onInputChange = {this._onSearchInputChange}
+      />
+    );
+  }
+}
 
 function mapStateToProps(state){
   return {
@@ -17,4 +25,4 @@ function mapStateToProps(state){
   };
 }
 
-export default connect(mapStateToProps)(SearchResultListContainer);
+export default connect(mapStateToProps)(SearchInputContainer);
