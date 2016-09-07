@@ -8,25 +8,24 @@ import React from 'react';
   and handles chnage events. It is supposed to take the current value as a parameter
 **/
 function wrapChangeEvent(input, handler){
-  return function(event){
-    handler.call(input, {value:event.target.value});
+  return function onChange(event){
+    handler.call(input, {value: event.target.value});
   };
 }
 
 export default class SearchInput extends React.Component{
   constructor(props){
-      super(props);
-      const {onInputChange} = props;
-      this._eventHandler = wrapChangeEvent(this, onInputChange);
+    super(props);
+    const {onInputChange} = props;
+    this._eventHandler = wrapChangeEvent(this, onInputChange);
   }
 
   render(){
-    const defaultValue = this.props.defaultValue || "";
     return (
       <input type="text"
-        defaultValue={defaultValue}
         value={this.props.value}
-        onChange={this._eventHandler}>
+        onChange={this._eventHandler}
+      >
       </input>
     );
   }

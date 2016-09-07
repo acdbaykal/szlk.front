@@ -1,8 +1,7 @@
 import React, {PropTypes} from 'react';
-import SearchInput from 'view/components/SearchInput/SearchInput';
-import SearchResultHeader from 'view/components/SearchResult/SearchResultHeader';
-import SearchResultList from 'view/components/SearchResult/SearchResultList';
-import TranslationsSelector from 'selectors/TranslationsSelector';
+import SearchInput from 'view/components/SearchInput/SearchInputContainer';
+import SearchResultHeader from 'view/components/SearchResult/SearchResultHeaderContainer';
+import SearchResultList from 'view/components/SearchResult/SearchResultListContainer';
 import styles from './style/SearchLayout.styl';
 import {connect} from 'react-redux';
 
@@ -56,17 +55,12 @@ class SearchLayout extends React.Component{
       <div className={styles.dictionary}>
         <SearchInput
           onInputChange={this._onSearchInputChange}
-          value={this.props.filtering.search_term}
         />
         <div>
           <SearchResultHeader
             onSortRequest={this._onSortRequest}
-            sortBy={this.props.sorting.sort_by}
-            sortOrder={this.props.sorting.sort_order}
           />
-          <SearchResultList
-            translations={this.props.translations}
-          />
+          <SearchResultList />
         </div>
       </div>
     );
@@ -74,17 +68,11 @@ class SearchLayout extends React.Component{
 }
 
 SearchLayout.propTypes = {
-  document: PropTypes.element.any,
-  filtering: PropTypes.object.isRequired,
-  sorting: PropTypes.object.isRequired,
-  translations: PropTypes.array.isRequired
+  document: PropTypes.element.any
 };
 
-function mapStateToProps(state){
-  return {
-    ...state,
-    translations: TranslationsSelector(state)
-  };
+function mapStateToProps(){
+  return {};
 }
 
 export default connect(mapStateToProps)(SearchLayout);

@@ -99,6 +99,14 @@ class AddTranslationComponent extends React.Component{
     this.setState({closed});
   }
 
+  shouldComponentUpdate(next_props, next_state){
+    const current_props = this.props;
+    const current_state = this.state;
+
+    return current_state.closed !== next_state.closed ||
+      current_props.currentLocale !== next_props.currentLocale;
+  }
+
   _closeInput(){
     this.setState({closed: true});
   }

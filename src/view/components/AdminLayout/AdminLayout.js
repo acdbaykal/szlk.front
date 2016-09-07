@@ -1,9 +1,9 @@
-import React, {PropTypes} from 'react';
-import SearchInput from 'view/components/SearchInput/SearchInput';
-import SearchResultHeader from 'view/components/SearchResult/AdminSearchResultHeader';
-import SearchResultList from 'view/components/SearchResult/AdminSearchResultList';
-import TranslationsSelector from 'selectors/TranslationsSelector';
-import AddTranslationComponent from 'view/components/AddTranslation/AddTranslationComponent';
+import React from 'react';
+import SearchInput from 'view/components/SearchInput/SearchInputContainer';
+import SearchResultHeader from 'view/components/SearchResult/AdminSearchResultHeaderContainer';
+import SearchResultList from 'view/components/SearchResult/AdminSearchResultListContainer';
+import AddTranslationComponent from
+  'view/components/AddTranslation/AddTranslationComponentContainer';
 import {connect} from 'react-redux';
 
 function createInputChangeHandler(dispatch){
@@ -53,22 +53,17 @@ class AdminLayout extends React.Component{
       <div>
         <SearchInput
           onInputChange={this._onSearchInputChange}
-          value={this.props.filtering.search_term}
         />
       <AddTranslationComponent
         onAdd={this._onAdd}
-        currentLocale={this.props.language.current}
       />
       <div>
         <div style={{width: `${(100 / 7) * 6}%`}}>
           <SearchResultHeader
             onSortRequest={this._onSortRequest}
-            sortBy={this.props.sorting.sort_by}
-            sortOrder={this.props.sorting.sort_order}
           />
         </div>
         <SearchResultList
-          translations={this.props.translations}
           onEdit = {this._onEditRequest}
           onDelete = {this._onDeletRequest}
         />
@@ -78,19 +73,8 @@ class AdminLayout extends React.Component{
   }
 }
 
-AdminLayout.propTypes = {
-  translations: PropTypes.array.isRequired
-};
-
-function mapStateToProps(state, ownProps){
-  let state_copy = state;
-  if(typeof state === 'undefined'){
-    state_copy = ownProps.initialState || ownProps.store.getState();
-  }
-  return {
-    ...state_copy,
-    translations: TranslationsSelector(state)
-  };
+function mapStateToProps(){
+  return {};
 }
 
 export default connect(mapStateToProps)(AdminLayout);

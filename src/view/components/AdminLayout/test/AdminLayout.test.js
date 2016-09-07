@@ -20,7 +20,7 @@ describe('layouts/AdminLayout', function(){
     const store = createStore((state = initial_state) => state, initial_state);
     const func = () => {
       shallow(
-        <AdminLayout translations={[]} store={store} initialState = {initial_state} />
+        <AdminLayout store={store} />
       );
     };
 
