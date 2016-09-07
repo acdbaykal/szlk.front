@@ -7,6 +7,12 @@ const ACTION_TO_HANDLER_MAP = {
       dispatch({type: 'LOGIN_NAVIGATION_REQUESTED'});
     }
   },
+  LOGIN_REQUESTED: dispatch => ({user = '', pass = ''}) => {
+    dispatch({type: 'LOGIN_REQUESTED', user, pass});
+  },
+  LOGIN_CANCEL_REQUESTED: dispatch => () => {
+    dispatch({type: 'LOGIN_CANCEL_REQUESTED'});
+  },
   SEARCH_REQUESTED: dispatch => ({value}) => dispatch(
     {type: 'SEARCH_REQUESTED', search: value}
   ),

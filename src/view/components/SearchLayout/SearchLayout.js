@@ -4,6 +4,7 @@ import SearchResultHeader from 'view/components/SearchResult/SearchResultHeaderC
 import SearchResultList from 'view/components/SearchResult/SearchResultListContainer';
 import HandlerFactory from 'view/action_handling/HandlerFactory';
 import styles from './style/SearchLayout.styl';
+import {connect} from 'react-redux';
 
 class SearchLayout extends React.Component{
 
@@ -26,6 +27,10 @@ class SearchLayout extends React.Component{
     }
   }
 
+  shouldComponentUpdate(){
+    return false;
+  }
+
   render(){
     return (
       <div className={styles.dictionary}>
@@ -43,4 +48,5 @@ SearchLayout.propTypes = {
   document: PropTypes.element.any
 };
 
-export default SearchLayout;
+//eslint-disable-next-line arrow-body-style
+export default connect(() => {return {};})(SearchLayout);

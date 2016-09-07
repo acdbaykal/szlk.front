@@ -1,26 +1,14 @@
 import React from 'react';
 import LogInComponent from 'view/components/LoginComponent/LoginComponent';
+import HandlerFactory from 'view/action_handling/HandlerFactory';
 import {connect} from 'react-redux';
-
-
-function loginRequestHandlerFactory(dispatch){
-  return ({user = '', pass = ''}) => {
-    dispatch({type: 'LOGIN_REQUESTED', user, pass});
-  };
-}
-
-function cancelRequestHandlerFactory(dispatch){
-  return () => {
-    dispatch({type: 'LOGIN_CANCEL_REQUESTED'});
-  };
-}
 
 class LoginLayout extends React.Component{
   constructor(props){
     super(props);
     const {dispatch} = props;
-    this._loginRequestHandler = loginRequestHandlerFactory(dispatch);
-    this._cancelRequestHandler = cancelRequestHandlerFactory(dispatch);
+    this._loginRequestHandler = HandlerFactory('LOGIN_REQUESTED', dispatch);
+    this._cancelRequestHandler = HandlerFactory('LOGIN_CANCEL_REQUESTED', dispatch);
   }
 
   render(){
