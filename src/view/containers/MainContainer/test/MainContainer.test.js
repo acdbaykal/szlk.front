@@ -7,7 +7,9 @@ const {expect} = chai;
 
 describe('container/MainContainer', function(){
   it('it should shallow render', function(){
-    const func = ()=>{shallow(<MainContainer><div/></MainContainer>)};
+    const top_float = <div></div>;
+    const main = <div></div>;
+    const func = () => shallow(<MainContainer top_float={top_float} main={main} />);
     expect(func).to.not.throw();
   });
 });
