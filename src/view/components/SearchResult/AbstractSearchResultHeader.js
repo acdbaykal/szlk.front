@@ -52,11 +52,11 @@ export default (
 
       componentWillMount(){
         const {sortBy: sort_by} = this.props;
-        const sort_handlers = this._sortHandlers;
-        const is_not_presentable = !(sort_handlers.includes(sort_by));
-        if(is_not_presentable && sort_handlers.length > 0){
+
+        const is_not_presentable = sort_by_arr.indexOf(sort_by) === -1;
+        if(is_not_presentable && sort_by_arr.length > 0){
           //send a request to change the sorting to a presentable default
-          sort_handlers[0]();
+          this._sortHandlers[0]();
         }
       }
 

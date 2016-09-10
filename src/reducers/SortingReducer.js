@@ -1,6 +1,6 @@
-import ReducerFactory from './ReducerFactory'
-import SortBy from 'global/data/SortableEnum.js'
-import SortOrder from 'global/data/SortDirectionEnum'
+import ReducerFactory from './ReducerFactory';
+import SortBy from 'global/data/SortableEnum.js';
+import SortOrder from 'global/data/SortDirectionEnum';
 
 
 function sort(store, action){
@@ -12,15 +12,13 @@ function sort(store, action){
     const new_sort_order = old_sort_order === SortOrder.ASCENDING ?
                             SortOrder.DESCENDING : SortOrder.ASCENDING
     ;
-    return {...store, sort_order:new_sort_order};
+    return {...store, sort_order: new_sort_order};
   }
-  else{
-    return {...store, sort_by:new_sort_by};
-  }
+  return {...store, sort_by: new_sort_by};
 }
 
 const mapping = {
-  SET_SORTBY:sort
+  SET_SORTBY: sort
 };
 
-export default (ReducerFactory(mapping, {sort_order:SortOrder.ASCENDING, sort_by:SortBy.ORIGIN}));
+export default (ReducerFactory(mapping, {sort_order: SortOrder.ASCENDING, sort_by: SortBy.ORIGIN}));
